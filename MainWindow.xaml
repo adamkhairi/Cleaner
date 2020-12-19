@@ -32,7 +32,7 @@
             <Label x:Name="resultSize" Content="" HorizontalAlignment="Left" Height="24" Margin="17,-18,-95,0" VerticalAlignment="Top" Width="174"/>
             <Label x:Name="lastUpdate1" Content="" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="174" Margin="-79,18,0,-20"/>
         </UniformGrid>
-        <UniformGrid x:Name="leftMenu" Margin="0,44,0.119,126">
+        <UniformGrid x:Name="leftMenu" Margin="0,44,0,123">
 
             <Label Content="CLEANER" HorizontalAlignment="Center" Margin="68.119,0,-98.413,0" VerticalAlignment="Top" Width="111" Height="44" FontWeight="Black" Foreground="White" FontSize="18" ForceCursor="True" HorizontalContentAlignment="Center"/>
             <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="-64.706,64,-69.587,0" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
@@ -62,7 +62,8 @@
                     <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                 </Button.Background>
             </Button>
-            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="-63.706,82.667,-70.587,0" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
+            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="-65,84,-69,-1" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
+
         </UniformGrid>
         <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="3" Grid.Column="1" HorizontalAlignment="Left" Height="2" Margin="78,158,0,0" VerticalAlignment="Top" Width="494" CornerRadius="20"/>
         <UniformGrid x:Name="toolButtons" Grid.ColumnSpan="3" Grid.Column="1" Margin="78,195,78.254,94" d:IsLocked="True">
