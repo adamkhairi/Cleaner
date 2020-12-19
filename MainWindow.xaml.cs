@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -14,6 +15,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using Xamarin.Essentials;
 
 namespace Ccleaner
 {
@@ -22,22 +25,16 @@ namespace Ccleaner
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void btnClean_Click(object sender, RoutedEventArgs e)
-        {
-         
-        }
-
-        private void scan_Click(object sender, RoutedEventArgs e)
+        private async void scan_Click(object sender, RoutedEventArgs e)
         {
 
             MessageBox.Show("Start scan");
-         
-
             btnClean.IsEnabled = false;
             btnHistory.IsEnabled = false;
             btnUpdate.IsEnabled = false;
@@ -47,25 +44,41 @@ namespace Ccleaner
             statisic.Visibility = Visibility.Hidden;
             progress.Visibility = Visibility.Visible;
 
-
-            for (int i = 1; i <= 100; i++)
-            {
-                pbar.Value++;
-            }
-
-
+           await Task.Run(pBarSleep);
            
+            if (pbar.Value == 100) { 
+                   Console.WriteLine(pbar.Value);
+                   btnClean.IsEnabled = true;
+                   btnHistory.IsEnabled = true;
+                   btnUpdate.IsEnabled = true;
 
-
+                   bigTitle.Content = "Scan Completed";
+                   scan.Visibility = Visibility.Visible;
+                   statisic.Visibility = Visibility.Visible;
+                   progress.Visibility = Visibility.Hidden;
+                lastUpdate1.Content = "2 Days ago";
+                resultSize.Content = "1.3 GB";
+                lastScan1.Content = "Friday, December 18 2020";
+               }
+            
+            
+        }
+        void pBarSleep()
+        {
+            for (int i = 0; i <= 100; i++)
+            {
+                Thread.Sleep(30);
+                Dispatcher.Invoke(() =>
+                {
+                    pbar.Value = i;
+                });
+            }
         }
 
-        private void pbar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void webSite_Click(object sender, RoutedEventArgs e)
         {
-        Duration duration = new Duration(TimeSpan.FromSeconds(2));
-            DoubleAnimation doubleAnimation = new DoubleAnimation(pbar.Value + 10, duration);
-            pbar.BeginAnimation(ProgressBar.ValueProperty, doubleAnimation);
-            //Thread.Sleep(10000);
-
+    
+           Process.Start("https://github.com/adamkhairi/Cleaner");
         }
     }
 }
