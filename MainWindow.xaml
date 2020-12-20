@@ -106,31 +106,16 @@
                     </TransformGroup>
                 </ProgressBar.RenderTransform>
             </ProgressBar>
-            <TextBlock Name="pBarText" Text="{Binding Value, ElementName=pbar, StringFormat=\{0:0\}%}" VerticalAlignment="Center" Margin="-14,4,224,-13" Height="21" HorizontalAlignment="Right" Width="32" />
-
-
+            <TextBlock x:Name="textProg"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-53,0,194,-13" Grid.Row="1" Padding="4" Height="25" Width="106"  TextAlignment="Center" />
 
 
         </UniformGrid>
-        <UniformGrid Name="infos" Grid.ColumnSpan="3" Grid.Column="1" Margin="78,165,78,47" Visibility="Hidden">
+        <UniformGrid Name="infos" Grid.ColumnSpan="3" Grid.Column="1" Margin="76,158,68.5,47" Visibility="Hidden">
 
-            <ToggleButton x:Name="btnShowInfo" Content="Show more info" HorizontalAlignment="Right" Height="25" Margin="0,0,147.119,0" VerticalAlignment="Top" Width="100" Checked="showInfo" Unchecked="hideInfo" Background="White" />
+            <ToggleButton x:Name="btnShowInfo" Content="Show info" HorizontalAlignment="Right" Height="25" Margin="0,5,172,0" VerticalAlignment="Top" Width="80" IsChecked="False" Checked="showInfo" Unchecked="hideInfo" Background="White" />
 
-            <RichTextBox  HorizontalAlignment="Left" Height="179" Margin="-248,30,0,-104.5" Padding="10" materialDesign:ScrollBarAssist.ButtonsVisibility="Visible" Visibility="Hidden" VerticalAlignment="Top" Width="495.762">
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text=""/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
-            <ListView  x:Name="scan_info" Margin="0,-74.5,-247.881,0" ScrollViewer.VerticalScrollBarVisibility="Visible" Visibility="Hidden">
-                <ListView.View>
-                    <GridView>
+            <TextBox x:Name="result" HorizontalAlignment="Left" Height="184" Text="" VerticalAlignment="Top" Width="508" Margin="-254,33,0,-109" TextWrapping="NoWrap" VerticalScrollBarVisibility="Visible" Visibility="Hidden"/>
 
-                        <GridViewColumn Header="Path" Width="490"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
 
 
 

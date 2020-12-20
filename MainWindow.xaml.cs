@@ -37,7 +37,7 @@ namespace Ccleaner
             infos.Visibility = Visibility.Visible;
             // Clear.ClearTempData(temp);
 
-            await Task.Run(pBarSleep);
+            await Task.Run(PBarSleep);
 
             if (pbar.Value > 100)
             {
@@ -62,43 +62,39 @@ namespace Ccleaner
 
         }
 
-
-        void pBarSleep()
+        private string[] PBarSleep()
         {
 
             var temp = Path.GetTempPath();
             var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
-            //for (int i = 0; i <= files.Length; i++)
-            for (int i = 0; i <= 300; i++)
+            var length = files.Length;
+            //var length = 150;
+
+            for (int i = 0; i <= length; i++)
 
             {
-                Thread.Sleep(120);
+                Thread.Sleep(100);
 
                 Dispatcher.Invoke(() =>
                 {
-
-
-
-                    //scan_info.Document.Blocks.Add(files[j]);
-                    //scan_info.AppendText(files[j]);
-
-                    scan_info.Items.Add(files[i]);
-
-
+                    result.Text += $" {i}- {files[i]} {Environment.NewLine}";
                 });
 
                 Dispatcher.Invoke(() =>
-            {
-
-
-                 //var valueAct = (files.Length * i / 100) / files.Length
-
-                 pbar.Value = i;
-
-            });
+                {
+                    pbar.Value = CalcPer(i, length);
+                    textProg.Text = Math.Round(pbar.Value , 1) + "%";
+                    result.ScrollToEnd();
+                });
 
             }
-           
+            return files;
+        }
+        double CalcPer(double a, double b)
+        {
+            var i = b - a;
+            var inc = i / b * 100;
+            return 100 - inc;
         }
 
         private void webSite_Click(object sender, RoutedEventArgs e)
@@ -109,18 +105,20 @@ namespace Ccleaner
         }
         private void hideInfo(object sender, RoutedEventArgs e)
         {
-            scan_info.Visibility = Visibility.Hidden;
+            result.Visibility = Visibility.Hidden;
         }
         private void showInfo(object sender, RoutedEventArgs e)
         {
-            scan_info.Visibility = Visibility.Visible;
+            result.Visibility = Visibility.Visible;
 
         }
 
         private void btnClean_Click(object sender, RoutedEventArgs e)
         {
+            //var temp = Path.GetTempPath();
+            //var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
 
-
+            //Clear.ClearTempData(files);
         }
     }
 }

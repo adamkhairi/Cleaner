@@ -9,14 +9,17 @@ namespace Ccleaner
 {
     class Clear
     {
-        public static void ClearTempData(DirectoryInfo temp)
+        public static void ClearTempData(string[] temp)
         {
-            foreach (FileInfo file in temp.GetFiles())
+            foreach (var file in temp)
             {
                 try
                 {
-                    file.Delete();
-                    Console.WriteLine(file.FullName);
+                   File.Delete(file);
+                   Directory.Delete(file);
+
+                    Console.WriteLine(file);
+                   
                 }
                 catch (Exception e)
                 {
@@ -25,19 +28,6 @@ namespace Ccleaner
                 }
             }
 
-            foreach (DirectoryInfo dir in temp.GetDirectories())
-            {
-                try
-                {
-                    dir.Delete(true);
-                    Console.WriteLine(dir.FullName);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    continue;
-                }
-            }
         }
     }
 }
