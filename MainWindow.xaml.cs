@@ -115,10 +115,20 @@ namespace Ccleaner
 
         private void btnClean_Click(object sender, RoutedEventArgs e)
         {
-            //var temp = Path.GetTempPath();
-            //var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
+            if (MessageBox.Show("Do you want to Clean files?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                //var temp = Path.GetTempPath();
+                //var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
 
-            //Clear.ClearTempData(files);
+                //Clear.ClearTempData(files);  
+            }
+            else
+            {
+                // close the window 
+                
+            }
+
+           
         }
     }
 }
