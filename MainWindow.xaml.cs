@@ -68,7 +68,9 @@ namespace Ccleaner
 
             var temp = Path.GetTempPath();
             var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
-            for (int i = 0; i <= files.Length; i++)
+            //for (int i = 0; i <= files.Length; i++)
+            for (int i = 0; i <= 300; i++)
+
             {
                 Thread.Sleep(120);
 
@@ -76,24 +78,27 @@ namespace Ccleaner
                 {
 
 
-                    for (var j = 0; j < files.Length; j++)
-                    {
-                        //scan_info.Document.Blocks.Add(files[j]);
-                        //scan_info.AppendText(files[j]);
 
-                        scan_info.Items.Add(files[j]);
-                    }
+                    //scan_info.Document.Blocks.Add(files[j]);
+                    //scan_info.AppendText(files[j]);
+
+                    scan_info.Items.Add(files[i]);
+
 
                 });
+
                 Dispatcher.Invoke(() =>
-               {
-                   var valueAct = (files.Length * i / 100);
+            {
 
 
-                   pbar.Value = Convert.ToInt32(valueAct);
+                 //var valueAct = (files.Length * i / 100) / files.Length
 
-               });
+                 pbar.Value = i;
+
+            });
+
             }
+           
         }
 
         private void webSite_Click(object sender, RoutedEventArgs e)
