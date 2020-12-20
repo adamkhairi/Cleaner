@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using Microsoft.Extensions.Caching.Memory;
+
+using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-using Xamarin.Essentials;
+
 
 namespace Ccleaner
 {
@@ -25,7 +16,7 @@ namespace Ccleaner
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -43,42 +34,88 @@ namespace Ccleaner
             scan.Visibility = Visibility.Hidden;
             statisic.Visibility = Visibility.Hidden;
             progress.Visibility = Visibility.Visible;
+            infos.Visibility = Visibility.Visible;
+            // Clear.ClearTempData(temp);
 
-           await Task.Run(pBarSleep);
-           
-            if (pbar.Value == 100) { 
-                   Console.WriteLine(pbar.Value);
-                   btnClean.IsEnabled = true;
-                   btnHistory.IsEnabled = true;
-                   btnUpdate.IsEnabled = true;
+            await Task.Run(pBarSleep);
 
-                   bigTitle.Content = "Scan Completed";
-                   scan.Visibility = Visibility.Visible;
-                   statisic.Visibility = Visibility.Visible;
-                   progress.Visibility = Visibility.Hidden;
+            if (pbar.Value > 100)
+            {
+                MessageBox.Show("Scan Complete");
+
+                Console.WriteLine(pbar.Value);
+                btnClean.IsEnabled = true;
+                btnHistory.IsEnabled = true;
+                btnUpdate.IsEnabled = true;
+
+                bigTitle.Content = "Scan Completed";
+                scan.Visibility = Visibility.Visible;
+                statisic.Visibility = Visibility.Visible;
+                infos.Visibility = Visibility.Hidden;
+                progress.Visibility = Visibility.Hidden;
+
                 lastUpdate1.Content = "2 Days ago";
                 resultSize.Content = "1.3 GB";
                 lastScan1.Content = "Friday, December 18 2020";
-               }
-            
-            
+            }
+
+
         }
+
+
         void pBarSleep()
         {
-            for (int i = 0; i <= 100; i++)
+
+            var temp = Path.GetTempPath();
+            var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
+            for (int i = 0; i <= files.Length; i++)
             {
-                Thread.Sleep(30);
+                Thread.Sleep(120);
+
                 Dispatcher.Invoke(() =>
                 {
-                    pbar.Value = i;
+
+
+                    for (var j = 0; j < files.Length; j++)
+                    {
+                        //scan_info.Document.Blocks.Add(files[j]);
+                        //scan_info.AppendText(files[j]);
+
+                        scan_info.Items.Add(files[j]);
+                    }
+
                 });
+                Dispatcher.Invoke(() =>
+               {
+                   var valueAct = (files.Length * i / 100);
+
+
+                   pbar.Value = Convert.ToInt32(valueAct);
+
+               });
             }
         }
 
         private void webSite_Click(object sender, RoutedEventArgs e)
         {
-    
-           Process.Start("https://github.com/adamkhairi/Cleaner");
+
+            Process.Start("https://github.com/adamkhairi/Cleaner");
+
+        }
+        private void hideInfo(object sender, RoutedEventArgs e)
+        {
+            scan_info.Visibility = Visibility.Hidden;
+        }
+        private void showInfo(object sender, RoutedEventArgs e)
+        {
+            scan_info.Visibility = Visibility.Visible;
+
+        }
+
+        private void btnClean_Click(object sender, RoutedEventArgs e)
+        {
+
+
         }
     }
 }

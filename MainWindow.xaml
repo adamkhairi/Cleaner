@@ -19,7 +19,7 @@
 
         </Grid.ColumnDefinitions>
         <Rectangle Fill="#FFDADADA" Height="399" Stroke="Black" VerticalAlignment="Top" RadiusX="15" RadiusY="15" Margin="0,12,10,0" Grid.ColumnSpan="3" Grid.Column="1" d:IsLocked="True"/>
-        <Image Margin="103,10,105,374" Source="laptop-cleaning.png" Stretch="Fill" RenderTransformOrigin="0.559,0.871"/>
+        <Image Margin="106,10,102,374" Source="laptop-cleaning.png" Stretch="Fill" RenderTransformOrigin="0.559,0.871"/>
         <Button x:Name="scan" Content="SCAN NOW"  Grid.Column="3" Height="31" Margin="18,95,78,0" VerticalAlignment="Top" FontWeight="Bold" Grid.IsSharedSizeScope="True" Background="#FF272727" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Cursor="Hand" BorderBrush="{x:Null}" Click="scan_Click" />
 
         <Label x:Name="bigTitle" Content="Scan your computer" Grid.Column="1" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Width="630" Grid.ColumnSpan="3" FontWeight="Bold" Height="48" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontFamily="Verdana Pro Black"/>
@@ -32,7 +32,7 @@
             <Label x:Name="resultSize" Content="" HorizontalAlignment="Left" Height="24" Margin="17,-18,-95,0" VerticalAlignment="Top" Width="174"/>
             <Label x:Name="lastUpdate1" Content="" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="174" Margin="-79,18,0,-20"/>
         </UniformGrid>
-        <UniformGrid x:Name="leftMenu" Margin="0,44,0,123">
+        <UniformGrid x:Name="leftMenu" Margin="0,47,0,116">
 
             <Label Content="CLEANER" HorizontalAlignment="Center" Margin="68.119,0,-98.413,0" VerticalAlignment="Top" Width="111" Height="44" FontWeight="Black" Foreground="White" FontSize="18" ForceCursor="True" HorizontalContentAlignment="Center"/>
             <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="-64.706,64,-69.587,0" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
@@ -44,7 +44,7 @@
                     <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                 </Button.Background>
             </Button>
-            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="17,36.333,-151.294,0" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
+            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="17,35.333,-151.254,0" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
             <Button x:Name="analyse" Content="Analyse" HorizontalAlignment="Left" Height="63" Margin="-80.706,37.333,-80.587,-16.667" VerticalAlignment="Top" Width="242" Foreground="White" Cursor="Hand">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF707070" Opacity="0"/>
@@ -53,8 +53,8 @@
                     <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                 </Button.Background>
             </Button>
-            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="-144.413,99.333,0,-16.667" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
-            <Button x:Name="history" Content="History" HorizontalAlignment="Left" Height="66" Margin="0,16.667,-161.294,0" VerticalAlignment="Top" Width="242" Foreground="White" Cursor="Hand">
+            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="-144.413,102.333,0,-17.333" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
+            <Button x:Name="history" Content="History" HorizontalAlignment="Left" Height="66" Margin="0,18.667,-161.254,0" VerticalAlignment="Top" Width="242" Foreground="White" Cursor="Hand">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF707070" Opacity="0"/>
                 </Button.BorderBrush>
@@ -62,12 +62,12 @@
                     <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
                 </Button.Background>
             </Button>
-            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="-65,84,-69,-1" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
+            <Rectangle Fill="#FFDADADA" HorizontalAlignment="Left" Height="1" Margin="-65,85,-69.254,0" RadiusY="15" RadiusX="15" Stroke="White" VerticalAlignment="Top" Width="215"/>
 
         </UniformGrid>
         <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="3" Grid.Column="1" HorizontalAlignment="Left" Height="2" Margin="78,158,0,0" VerticalAlignment="Top" Width="494" CornerRadius="20"/>
-        <UniformGrid x:Name="toolButtons" Grid.ColumnSpan="3" Grid.Column="1" Margin="78,195,78.254,94" d:IsLocked="True">
-            <Button x:Name="btnClean" Content="Clean" HorizontalAlignment="Left" Height="132" Margin="0,0,0,-66" VerticalAlignment="Top" Width="139" Background="#FF272727" Foreground="White" FontWeight="Bold" FontSize="20" ClipToBounds="True" Cursor="Hand" BorderBrush="{x:Null}">
+        <UniformGrid x:Name="toolButtons" Grid.ColumnSpan="3" Grid.Column="1" Margin="78,195,78.254,94" >
+            <Button x:Name="btnClean" Content="Clean" HorizontalAlignment="Left" Height="132"  Margin="0,0,0,-66" VerticalAlignment="Top" Width="139" Background="#FF272727" Foreground="White" FontWeight="Bold" FontSize="20" ClipToBounds="True" Cursor="Hand" BorderBrush="{x:Null}" Click="btnClean_Click">
                 <Button.Effect>
                     <DropShadowEffect />
                 </Button.Effect>
@@ -83,9 +83,10 @@
                 </Button.Effect>
             </Button>
 
+
         </UniformGrid>
 
-        <Button x:Name="webSite" Content="WEB SITE" Height="28" Margin="68,348,68,45" VerticalAlignment="Center" FontSize="9" Background="#FF272727" Foreground="White" Cursor="Hand" Click="webSite_Click">
+        <Button x:Name="webSite" Content="WEB SITE" Height="36" Margin="68,348,68,37" VerticalAlignment="Center" FontSize="9" Background="#FF272727" Foreground="White" Cursor="Hand" Click="webSite_Click">
             <Button.BorderBrush>
                 <SolidColorBrush Color="#FF707070" Opacity="0"/>
 
@@ -95,7 +96,7 @@
         <Label Content="CLEANER is a software made in Morocco" Grid.Column="1" HorizontalAlignment="Left" Margin="189,379,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="263" FontSize="11"/>
         <UniformGrid x:Name="progress" Grid.ColumnSpan="3" Grid.Column="1" Margin="78,101,80.5,295" Visibility="Hidden">
 
-            <ProgressBar Name="pbar" Minimum="0" Maximum="100" Value="0" HorizontalAlignment="Left" Height="26" Margin="0,-1,-254,-13" VerticalAlignment="Top" Width="496" Foreground="#FF474747" IsIndeterminate="False" RenderTransformOrigin="0.5,0.449">
+            <ProgressBar Name="pbar" Minimum="0" Maximum="100" HorizontalAlignment="Left" Height="26" Margin="0,-1,-254,-13" VerticalAlignment="Top" Width="496" Foreground="#FF474747" IsIndeterminate="False" RenderTransformOrigin="0.5,0.449">
                 <ProgressBar.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -106,6 +107,31 @@
                 </ProgressBar.RenderTransform>
             </ProgressBar>
             <TextBlock Name="pBarText" Text="{Binding Value, ElementName=pbar, StringFormat=\{0:0\}%}" VerticalAlignment="Center" Margin="-14,4,224,-13" Height="21" HorizontalAlignment="Right" Width="32" />
+
+
+
+
+        </UniformGrid>
+        <UniformGrid Name="infos" Grid.ColumnSpan="3" Grid.Column="1" Margin="78,165,78,47" Visibility="Hidden">
+
+            <ToggleButton x:Name="btnShowInfo" Content="Show more info" HorizontalAlignment="Right" Height="25" Margin="0,0,147.119,0" VerticalAlignment="Top" Width="100" Checked="showInfo" Unchecked="hideInfo" Background="White" />
+
+            <RichTextBox  HorizontalAlignment="Left" Height="179" Margin="-248,30,0,-104.5" Padding="10" materialDesign:ScrollBarAssist.ButtonsVisibility="Visible" Visibility="Hidden" VerticalAlignment="Top" Width="495.762">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text=""/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <ListView  x:Name="scan_info" Margin="0,-74.5,-247.881,0" ScrollViewer.VerticalScrollBarVisibility="Visible" Visibility="Hidden">
+                <ListView.View>
+                    <GridView>
+
+                        <GridViewColumn Header="Path" Width="490"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
 
 
 
