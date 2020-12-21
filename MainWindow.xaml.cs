@@ -49,7 +49,6 @@ namespace Ccleaner
                 btnUpdate.IsEnabled = true;
 
                 bigTitle.Content = "Scan Completed";
-                scan.Visibility = Visibility.Visible;
                 statisic.Visibility = Visibility.Visible;
                 infos.Visibility = Visibility.Hidden;
                 progress.Visibility = Visibility.Hidden;
@@ -57,6 +56,13 @@ namespace Ccleaner
                 lastUpdate1.Content = "2 Days ago";
                 resultSize.Content = "1.3 GB";
                 lastScan1.Content = "Friday, December 18 2020";
+                pcName.Visibility = Visibility.Visible;
+                userName.Visibility = Visibility.Visible;
+                pcOs.Visibility = Visibility.Visible;
+
+                pcName.Content += $" {Environment.MachineName}.";
+                userName.Content += $" {Environment.UserName}.";
+                pcOs.Content += $" {Environment.OSVersion}";
             }
 
 
