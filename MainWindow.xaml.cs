@@ -83,18 +83,18 @@ namespace Ccleaner
                 Dispatcher.Invoke(() =>
                 {
                     pbar.Value = CalcPer(i, length);
-                    textProg.Text = Math.Round(pbar.Value , 1) + "%";
+                    textProg.Text = Math.Round(pbar.Value, 1) + "%";
                     result.ScrollToEnd();
                 });
 
             }
             return files;
         }
-        double CalcPer(double a, double b)
+        double CalcPer(double newNum, double originalNum)
         {
-            var i = b - a;
-            var inc = i / b * 100;
-            return 100 - inc;
+            var increase = originalNum - newNum;
+            var incPer = increase / originalNum * 100;
+            return 100 - incPer;
         }
 
         private void webSite_Click(object sender, RoutedEventArgs e)
@@ -125,10 +125,10 @@ namespace Ccleaner
             else
             {
                 // close the window 
-                
+
             }
 
-           
+
         }
     }
 }
