@@ -1,33 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace Ccleaner
 {
     class Clear
     {
-        public static void ClearTempData(string[] temp)
+        public static void ClearTempData()
         {
-            foreach (var file in temp)
+
+            var tempF = Path.GetTempPath();
+
+            //var tempt = @"‪C:\Windows\Temp";
+            MessageBox.Show(tempF);
+            DirectoryInfo dir = new DirectoryInfo(tempF);
+            var filesInDir = dir.GetFiles();
+
+
+            foreach (var file in filesInDir)
             {
                 try
                 {
-                   File.Delete(file);
-                   Directory.Delete(file);
+                    //file.Delete();
+                    //dir.Delete();
+                    Console.WriteLine(file.FullName);
+                    Console.WriteLine(file.DirectoryName);
 
-                    Console.WriteLine(file);
-                   
+                    File.Delete(file.FullName);
+                    Directory.Delete(file.DirectoryName);
+
+
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(ex.Message);
                     continue;
                 }
             }
-
         }
     }
 }

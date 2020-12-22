@@ -6,7 +6,6 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
 
 namespace Ccleaner
@@ -16,9 +15,11 @@ namespace Ccleaner
     /// </summary>
     public partial class MainWindow : Window
     {
+        double scanSize;
 
         public MainWindow()
         {
+
             InitializeComponent();
         }
 
@@ -39,9 +40,26 @@ namespace Ccleaner
 
             await Task.Run(PBarSleep);
 
-            if (pbar.Value > 100)
+            if (pbar.Value >= 100)
             {
                 MessageBox.Show("Scan Complete");
+
+                var temp = Path.GetTempPath();
+                DirectoryInfo dir = new DirectoryInfo(temp);
+                var filesInDir = dir.EnumerateFiles();
+                foreach (var file in filesInDir)
+                {
+                    if (file.Length > 0)
+                    {
+                        Console.WriteLine(file.Length.ToString());
+                        scanSize += file.Length / 1024 * 2;
+
+                    }
+                    else
+                    {
+                        scanSize = 0;
+                    }
+                }
 
                 Console.WriteLine(pbar.Value);
                 btnClean.IsEnabled = true;
@@ -54,8 +72,8 @@ namespace Ccleaner
                 progress.Visibility = Visibility.Hidden;
 
                 lastUpdate1.Content = "2 Days ago";
-                resultSize.Content = "1.3 GB";
-                lastScan1.Content = "Friday, December 18 2020";
+                resultSize.Content = scanSize + " Mo";
+                lastScan1.Content = "10/11/2010 20:10:22";
                 pcName.Visibility = Visibility.Visible;
                 userName.Visibility = Visibility.Visible;
                 pcOs.Visibility = Visibility.Visible;
@@ -73,14 +91,14 @@ namespace Ccleaner
 
             var temp = Path.GetTempPath();
             var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
-            var length = files.Length;
-            //var length = 150;
+            // var length = files.Length;
+
+            var length = 50;
 
             for (int i = 0; i <= length; i++)
-
             {
-                Thread.Sleep(100);
 
+                Thread.Sleep(80);
                 Dispatcher.Invoke(() =>
                 {
                     result.Text += $" {i}- {files[i]} {Environment.NewLine}";
@@ -88,7 +106,8 @@ namespace Ccleaner
 
                 Dispatcher.Invoke(() =>
                 {
-                    pbar.Value = CalcPer(i, length);
+                    //pbar.Value = CalcPer(i, length);
+                    pbar.Value += 100 / length;
                     textProg.Text = Math.Round(pbar.Value, 1) + "%";
                     result.ScrollToEnd();
                 });
@@ -113,7 +132,7 @@ namespace Ccleaner
         {
             result.Visibility = Visibility.Hidden;
         }
-        private void showInfo(object sender, RoutedEventArgs e)
+        private void ShowInfo(object sender, RoutedEventArgs e)
         {
             result.Visibility = Visibility.Visible;
 
@@ -123,10 +142,28 @@ namespace Ccleaner
         {
             if (MessageBox.Show("Do you want to Clean files?", "Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                //var temp = Path.GetTempPath();
-                //var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
+                var temp = Path.GetTempPath();
+                var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
 
-                //Clear.ClearTempData(files);  
+                using (StreamWriter sw = new StreamWriter("c:/names.txt"))
+                {
+
+                    foreach (string s in files)
+                    {
+                        sw.WriteLine(s);
+                    }
+                }
+
+
+
+                Clear.ClearTempData();
+                StreamReader sr = new StreamReader("c:/jamaica.txt");
+                string line;
+
+                while ((line = sr.ReadLine()) != null)
+                {
+                    MessageBox.Show(line);
+                }
             }
             else
             {
