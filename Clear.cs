@@ -22,8 +22,7 @@ namespace Ccleaner
             {
                 try
                 {
-                    //file.Delete();
-                    //dir.Delete();
+
                     Console.WriteLine(file.FullName);
                     Console.WriteLine(file.DirectoryName);
 

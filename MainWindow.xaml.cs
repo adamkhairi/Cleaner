@@ -4,6 +4,7 @@ using Humanizer.Bytes;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -75,58 +76,70 @@ namespace Ccleaner
         private void PBarSleep()
         {
 
-            var temp = Path.GetTempPath();
-            DirectoryInfo dir = new DirectoryInfo(temp);
-            var length = dir.GetFiles().Length;
-            var filesInDir = dir.EnumerateFiles();
-            long i = 0;
+            //var temp = Path.GetTempPath();
+            //DirectoryInfo dir = new DirectoryInfo(temp);
 
-            foreach (var file in filesInDir)
+            //var length = dir.GetFiles("*.*", SearchOption.AllDirectories).Length;
+            //var filesInDir = dir.EnumerateFiles();
+            //long i = 0;
+
+            //foreach (var file in dir.GetFiles("*.*", SearchOption.AllDirectories))
+            //{
+            //    Thread.Sleep(10);
+            //    Dispatcher.Invoke(() =>
+            //    {
+            //        result.Text += $" {i}- {file.FullName} {Environment.NewLine}";
+            //        pbar.Value += 100 / length;
+            //        //pbar.Value = CalcPer(i, length);
+            //        textProg.Text = Math.Round(pbar.Value, 1) + "%";
+            //        result.ScrollToEnd();
+            //        i++;
+            //    });
+            //    if (file.Length > 0)
+            //    {
+            //        Console.WriteLine(file.Length.ToString());    
+            //        this.totalSize += Convert.ToInt64(file.Length);
+
+            //    }
+            //    else
+            //    {
+            //        this.totalSize = 0;
+            //    }
+            //}
+
+            var temp = Path.GetTempPath();
+            var dir = new DirectoryInfo(temp);
+            var files = dir.GetFiles("*.*", SearchOption.AllDirectories);
+
+            //var length = files.Length;
+
+            var length = 150;
+            
+            for (int i = 0; i <= length; i++)
             {
+
                 Thread.Sleep(10);
                 Dispatcher.Invoke(() =>
                 {
-                    result.Text += $" {i}- {file.FullName} {Environment.NewLine}";
+                    result.Text += $" {i}- {files[i]} {Environment.NewLine}";
                     //pbar.Value += 100 / length;
                     pbar.Value = CalcPer(i, length);
                     textProg.Text = Math.Round(pbar.Value, 1) + "%";
                     result.ScrollToEnd();
-                    i++;
                 });
-                if (file.Length > 0)
-                {
-                    Console.WriteLine(file.Length.ToString());
-                    //this.scanSize = Convert.ToDouble(ByteSize.FromKilobytes(file.Length).ToString());
-                    this.totalSize += Convert.ToInt64(file.Length);
 
+                if (length > 0)
+                {
+                    Console.WriteLine(files[i].Length.ToString());
+                    this.totalSize += Convert.ToInt64(files[i].Length);
 
                 }
                 else
                 {
                     this.totalSize = 0;
                 }
+
             }
-
-            //var temp = Path.GetTempPath();
-            //var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
-            //var length = files.Length;
-
-            ////var length = 550;
-
-            //for (int i = 0; i <= length; i++)
-            //{
-
-            //    Thread.Sleep(10);
-            //    Dispatcher.Invoke(() =>
-            //    {
-            //        result.Text += $" {i}- {files[i]} {Environment.NewLine}";
-            //        //pbar.Value += 100 / length;
-            //        pbar.Value = CalcPer(i, length);
-            //        textProg.Text = Math.Round(pbar.Value, 1) + "%";
-            //        result.ScrollToEnd();
-            //    });
-
-            //}
 
         }
         double CalcPer(double newNum, double originalNum)
@@ -175,7 +188,7 @@ namespace Ccleaner
         private void HistoryHundler()
         {
             var date = DateTime.Now.ToString("dd-MM-yyyy");
-            var time = DateTime.Now.ToString("hh-mm-ss");
+            var time = DateTime.Now.ToString("HH-mm");
             var dir = Directory.CreateDirectory("c:/Cleaner-logs/" + date);
 
             try
@@ -183,17 +196,17 @@ namespace Ccleaner
                 var temp = Path.GetTempPath();
                 var files = Directory.GetFiles(temp, "*.*", SearchOption.AllDirectories);
 
-
                 Console.WriteLine(dir);
 
                 using (StreamWriter sw = new StreamWriter($@"c:\Cleaner-logs\{dir}\{time}.txt "))
 
                 {
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        sw.WriteLine("[" + i + "]" + " -- " + files[i]);
+                    //for (int i = 0; i < files.Length; i++)
+                    //{
+                    //    sw.WriteLine("[" + i + "]" + " -- " + files[i]);
 
-                    }
+                    //}
+                    sw.WriteLine($"Last scan was {date} at {time} Totale Deleted was :{totalSize.ToPrettySize()}");
                 }
 
                 //Clear.ClearTempData();
@@ -214,8 +227,37 @@ namespace Ccleaner
         {
             var date = DateTime.Now.ToString("dd-MM-yyyy");
             var dir = Directory.CreateDirectory("c:/Cleaner-logs/" + date);
-            Process.Start($@"c:\Cleaner-logs\{dir}");
 
+            Process.Start(@"c:\Cleaner-logs");
+
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            WebClient webClient = new WebClient();
+
+            try
+            {
+                if (!webClient.DownloadString("yourpastebinlink").Contains("1.5.0"))
+                {
+                    if (MessageBox.Show("Looks like there is an update! Do you want to download it?", "Cleaner", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+
+                        using (var client = new WebClient())
+                        {
+                            
+                            Process.Start("CleanerUpdater.exe");
+                            this.Close();
+                        }
+                    }
+                     
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }
